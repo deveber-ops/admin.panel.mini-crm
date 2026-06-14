@@ -1,0 +1,38 @@
+<div class="modal fade notification-modal" id="notificationModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-body">
+                  <p class="fs-5 text-center">Для продолжения работы необходино разрешение на получение уведомлений.</p>
+                  <p class="text-center">Уведомления об окончании сессии, онлайн записях, и других действиях в системе.</p>
+                  <div class="alert alert-info mt-3">
+                      <i class="bi bi-info-circle"></i> Вы сможете отключить уведомления в настройках браузера в любое время.
+                  </div>
+              </div>
+              <div class="modal-footer p-2 border-0">
+                  <button type="button" class="btn btn-lg btn-success w-100 btn-notification" id="allowNotificationsBtn">
+                      Разрешить уведомления
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+    <!-- Модальное окно предупреждения об окончании сессии -->
+    <div class="modal fade" id="sessionWarningModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body d-flex flex-column align-items-center justify-content-center">
+                    <p class="fs-5 text-center w-100">Ваша работа будет автоматически завершена через</p>
+                    <span class="fs-3 p-2 py-3 text-bg-warning d-flex align-items-center justify-content-center rounded-4 w-auto fw-bold" id="warningTimer">5</span>
+                </div>
+                <div class="modal-footer p-2 border-0 justify-content-between">
+                    <button type="button" class="btn btn-lg btn-danger" id="logoutNowBtn">
+                        Завершить работу
+                    </button>
+                    <button type="button" class="btn btn-lg btn-success" id="continueSessionBtn">
+                        Продолжить работу
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>

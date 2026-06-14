@@ -1,0 +1,24 @@
+<IfModule mod_rewrite.c>
+    Options -Indexes +FollowSymLinks
+    RewriteEngine On
+    RewriteBase /
+    
+    # Разрешить доступ к реальным файлам
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+    
+    # Перенаправление на фронт-контроллер
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# Базовые заголовки безопасности
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Защита от выполнения PHP в uploads (если есть)
+<FilesMatch "^uploads/.*\.(php|phtml)$">
+    Require all denied
+</FilesMatch>

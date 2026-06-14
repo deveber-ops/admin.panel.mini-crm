@@ -1,0 +1,56 @@
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="updateServiceModal" tabindex="-1" aria-labelledby="updateServiceModalLabel">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content rounded-4">
+      <div class="modal-header p-2 justify-content-center border-0">
+        <h1 class="modal-title fs-5" id="updateServiceLabel"></h1>
+      </div>
+      <div class="modal-body py-2">
+        <form action="updateService" updateSections="servicesList" class="row g-3 needs-validation" name="updateService" id="updateService" novalidate>
+        <input type="hidden" class="form-control" name="id" required>
+          <div class="col-12">
+            <div class="input-group mb-2">
+              <label class="input-group-text" for="categorySelect">Категория</label>
+              <select class="form-select" style="max-width: 18rem;" id="categorySelect" name="category_id" required>
+              {% for CAT in CATEGORIES %}
+                <option value="{{ CAT.id }}">{{ CAT.name }}</option>
+              {% endfor %}
+              </select>
+              <input type="text" class="form-control" placeholder="Наименование" name="name" required>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="input-group">
+              <span class="input-group-text">Стоимость</span>
+              <input type="number" class="form-control" min="1" value="1" name="price" step="0.01" required>
+              <span class="input-group-text">BYN</span>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="input-group">
+              <span class="input-group-text fs-6">Гарантия</span>
+              <input type="number" class="form-control" min="1" value="30" name="warranty_days" required>
+              <span class="input-group-text fs-6">дней</span>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="input-group">
+              <span class="input-group-text fs-6">Исполнение</span>
+              <input type="number" class="form-control" min="0" value="0" name="completion_time" required>
+              <span class="input-group-text fs-6">мин.</span>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="input-group mt-0 h-100">
+              <span class="input-group-text">Описание</span>
+              <textarea class="form-control" style="min-height: 10rem;" name="description"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer p-2 border-0 justify-content-between">
+        <button type="button" class="btn btn-lg btn-danger" data-bs-dismiss="modal">Отмена</button>
+        <button type="submit" form="updateService" class="btn btn-lg btn-success">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>

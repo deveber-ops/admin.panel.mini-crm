@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ subject }}</title>
+    <style type="text/css">
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+        }
+        a {
+            color: #3498db;
+        }
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                width: 100% !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        {% block content %}{% endblock %}
+        
+        <table width="100%" border="0" cellspacing="0" cellpadding="20">
+            <tr>
+                <td align="center" style="font-size: 12px; color: #999; padding: 20px;">
+                    © {{ "now"|date("Y") }} PROTEGO. Все права защищены.
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

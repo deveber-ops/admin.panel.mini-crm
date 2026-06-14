@@ -1,0 +1,116 @@
+<div class="accordion accordion-flush bg-body h-100 overflow-auto p-1 pt-0" id="clientsList">
+    {% if CLIENTS is empty %}
+        <div class="list-group-item d-flex flex-row p-2 text-center mb-2">Клиенты еще не добавлены.</div>
+    {% endif %}
+
+    {% for CLIENT in CLIENTS %}
+    {% set CLIENT_TYPE = CLIENT.type == 'individual' ? 'Физическое лицо' : 'Юридическое лицо' %}
+        <div class="accordion-item border-0 p-0"
+            data-action="Client"
+            data-form="updateClient"
+            data-update="clientsList"
+            data-id="{{CLIENT.id}}"
+            data-name="{{CLIENT.name}}"
+            data-phone="{{CLIENT.phone}}"
+            data-type="{{CLIENT.type}}"
+            data-group="{{CLIENT.group_id}}"
+            data-discount="{{CLIENT.discount}}"
+            data-legal-form="{{CLIENT.legal_form_id}}"
+            data-legal-name="{{CLIENT.legal_name}}"
+            data-legal-unp="{{CLIENT.legal_unp}}"
+            data-legal-address="{{CLIENT.legal_address}}"
+            data-legal-email="{{CLIENT.legal_email}}"
+            data-legal-phone="{{CLIENT.legal_phone}}"
+            data-legal-bank="{{CLIENT.legal_bank}}"
+            data-legal-check="{{CLIENT.legal_check}}"
+            data-legal-bic="{{CLIENT.legal_bic}}"
+            data-legal-bank-address="{{CLIENT.legal_bank_address}}"
+            data-legal-post="{{CLIENT.legal_post}}"
+            data-legal-signatory="{{CLIENT.legal_signatory}}"
+            data-legal-document="{{CLIENT.legal_document}}">
+            <h2 class="accordion-header d-flex flex-row">
+                <button class="accordion-button p-2 bg-body-secondary shadow-none collapsed w-100" type="button" data-bs-toggle="collapse" data-bs-target="#client-{{CLIENT.id}}" aria-expanded="false" aria-controls="client-{{CLIENT.id}}">
+                    <div class="d-flex flex-row align-items-center">
+                        <span class="badge text-bg-secondary text-uppercase rounded-4 me-2">#{{CLIENT.id}}</span>
+                        <span class="badge text-bg-info text-uppercase rounded-4">{{CLIENT.group_name}}</span>
+                    </div>
+                    <div class="d-flex flex-row ms-1 align-items-center justify-content-center">
+                        {% if CLIENT.type == 'legal' %}
+                        <span class="badge text-bg-primary fw-normal mx-2 rounded-4">
+                            {{CLIENT_TYPE}}
+                        </span>
+                        {% endif %}
+                        <span>
+                            {% if CLIENT.type == 'individual' %}
+                            {{CLIENT.name}}
+                            {% else %}
+                            {{CLIENT.legal_form_code}} "{{CLIENT.legal_name}}"
+                            {% endif %}
+                        </span>
+                        <span class="badge text-bg-warning ms-4 rounded-4">{{CLIENT.discount}}%</span>
+                    </div>
+                </button>
+            </h2>
+            <div id="client-{{CLIENT.id}}" class="accordion-collapse collapse" data-bs-parent="#client-{{CLIENT.id}}Example">
+                <div class="accordion-body bg-body-secondary rounded-bottom-4 mb-1 d-flex flex-column p-2">
+                {% if CLIENT.type == 'legal' %}
+                    <h5 class="text-center">{{ CLIENT.legal_form_name ~ ' "' ~ CLIENT.legal_name ~ '"' }}</h5>
+
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item text-end rounded-start-4">УНП:</li>
+                                <li class="list-group-item text-center rounded-end-4 fw-medium">{{ CLIENT.legal_unp }}</li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal mt-1">
+                                <li class="list-group-item text-end rounded-start-4">Юр. Адрес:</li>
+                                <li class="list-group-item text-center rounded-end-4 fw-medium">{{ CLIENT.legal_address }}</li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal mt-1">
+                                <li class="list-group-item text-end rounded-start-4">Подписант:</li>
+                                <li class="list-group-item text-center rounded-end-4 fw-medium">{{ CLIENT.legal_post ~', '~  CLIENT.legal_signatory }}</li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal mt-1">
+                                <li class="list-group-item text-end rounded-start-4">Основание:</li>
+                                <li class="list-group-item text-center rounded-end-4 fw-medium">{{ CLIENT.legal_document }}</li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item text-center rounded-4 fw-medium ms-auto">{{ CLIENT.legal_bank }}</li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal mt-1">
+                                <li class="list-group-item text-end rounded-start-4 ms-auto">Код банка (BIC):</li>
+                                <li class="list-group-item text-center rounded-end-4 fw-medium">{{ CLIENT.legal_bic }}</li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal mt-1">
+                                <li class="list-group-item text-end rounded-start-4 ms-auto">Расчетный счет:</li>
+                                <li class="list-group-item text-center rounded-end-4 fw-medium">{{ CLIENT.legal_check }}</li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal mt-1">
+                                <li class="list-group-item text-end rounded-start-4 ms-auto">Адрес банка:</li>
+                                <li class="list-group-item text-center rounded-end-4 fw-medium">{{ CLIENT.legal_bank_address }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr class="m-1">
+                    {% endif %}
+                    <div class="d-flex flex-row align-items-center justify-content-between">
+                        <ul class="list-group list-group-horizontal me-2">
+                            <li class="list-group-item text-end rounded-start-4">Дата регистрации:</li>
+                            <li class="list-group-item text-center rounded-end-4 fw-medium">{{ dateTimeFormat(CLIENT.reg_date) }}</li>
+                        </ul>
+                        <ul class="list-group list-group-horizontal">
+                            <li class="list-group-item text-end rounded-start-4">Последняя продажа:</li>
+                            <li class="list-group-item text-center rounded-end-4 fw-medium">{{ dateTimeFormat(CLIENT.last_sale_date) }}</li>
+                        </ul>
+                        <ul class="list-group list-group-horizontal">
+                            <li class="list-group-item text-end rounded-start-4">Всего продаж:</li>
+                            <li class="list-group-item text-center rounded-end-4 fw-medium">{{ CLIENT.total_sales }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

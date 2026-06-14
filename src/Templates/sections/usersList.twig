@@ -1,0 +1,31 @@
+<div class="accordion accordion-flush bg-body rounded-bottom-4 p-1 pt-0" id="usersList">
+
+{% if USERS is empty %}
+    <div class="list-group-item d-flex flex-row p-2 text-center">Пользователи еще не добавлены.</div>
+{% endif %}
+
+{% for USER in USERS %}
+    <div class="accordion-item border-0 p-0" data-action="User" data-form="updateUser" data-update="usersList" data-id="{{USER.id}}" data-role="{{USER.role_id}}" data-post="{{USER.post}}" data-name="{{USER.username}}" data-full-name="{{USER.full_name}}" data-email="{{USER.email}}" data-phone="{{USER.phone}}" data-active="{{USER.is_active}}">
+        <h2 class="accordion-header d-flex flex-row">
+            <button class="accordion-button p-2 bg-body-secondary shadow-none collapsed w-100" type="button" data-bs-toggle="collapse" data-bs-target="#user-{{USER.id}}" aria-expanded="false" aria-controls="user-{{USER.id}}">
+                <div class="d-flex flex-column align-items-center" style="max-width: 7rem; min-width: 7rem;">
+                    <span class="badge text-bg-secondary fw-medium">{{USER.role_name}}</span>
+                    <strong class="mt-auto">{{USER.username}}</strong>
+                </div>
+                <div class="d-flex flex-column ms-1">
+                    <strong>{{USER.post}} {% if USER.is_active == 0 %}<span class="badge text-bg-warning">Заблокирован</span>{% endif %}</strong>
+                    <small class="mt-auto">{{USER.full_name}}</small>
+                </div>
+            </button>
+        </h2>
+        <div id="user-{{USER.id}}" class="accordion-collapse collapse pb-1" data-bs-parent="#user-{{USER.id}}Example">
+            <div class="accordion-body bg-body-secondary rounded-bottom-4 d-flex flex-column p-2">
+                <div class="d-flex flex-row p-2 justify-content-between">
+                    <div class="fw-medium"><small>Дата регистрации: {{ dateTimeFormat(USER.created_at) }}</small></div>
+                    <div class="fw-medium"><small>Последний вход: {{ dateTimeFormat(USER.last_login) }}</small></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>

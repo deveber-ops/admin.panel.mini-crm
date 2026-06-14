@@ -1,0 +1,27 @@
+{% extends 'layouts/base.twig' %}
+
+{% block title %}Панель управления - Пользователи{% endblock %}
+
+{% block content %}
+<main class="vh-100 d-flex flex-nowrap m-3 overflow-hidden">
+    {{ include('/sections/sidebar.twig') }}
+    <div class="container-fluid d-flex flex-column bg-body-secondary h-100 rounded-4 p-3">
+        <div class="d-flex flex-row h-100 overflow-hidden mb-3">
+            <div class="d-flex flex-column h-100 overflow-hidden me-3"  style="min-width: 20rem; max-width: 25rem;">
+                <div class="text-center fs-4 bg-body rounded-top-4 p-3">Группы</div>
+                {{ include('/sections/userRolesList.twig') }}
+                <div class="text-center bg-body p-1 rounded-bottom-4"><small>Нажмине для сортировки пользователей. <br> Нажмите еще раз для отмены сортировки.</small></div>
+            </div>
+            <div class="d-flex flex-column h-100 overflow-hidden w-100 rounded-4">
+                <div class="text-center fs-4 bg-body rounded-top-4 p-3">Пользователи</div>
+                    {{ include('/sections/usersList.twig') }}
+            </div>
+        </div>
+    </div>
+</main>
+{{ include('/sections/insertRoleModal.twig') }}
+{{ include('/sections/updateRoleModal.twig') }}
+{{ include('/sections/insertUserModal.twig') }}
+{{ include('/sections/updateUserModal.twig') }}
+{{ include('/sections/confirmationModal.twig') }}
+{% endblock %}

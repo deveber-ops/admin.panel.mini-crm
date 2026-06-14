@@ -1,0 +1,31 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Блокировка доступа к системным папкам
+    RewriteRule ^(app|config|src|vendor|logs|tests|node_modules|\.git) - [F,NC,L]
+    
+    # Запрет доступа к скрытым файлам (кроме manifest.json и service-worker.js)
+    RewriteCond %{REQUEST_URI} !^/(manifest\.json|service-worker\.js)$
+    RewriteRule /\.|^\. - [F,NC]
+    
+    # Разрешить доступ к manifest.json и service-worker.js
+    RewriteCond %{REQUEST_URI} ^/(manifest\.json|service-worker\.js)$
+    RewriteRule ^ - [L]
+    
+    # Перенаправление всех остальных запросов в public/
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Блокировка опасных файлов (исключая manifest.json)
+<FilesMatch "\.(env|config|md|sql|log|lock|bak)$">
+    Require all denied
+</FilesMatch>
+
+# Явно разрешаем доступ к manifest.json и service-worker.js
+<FilesMatch "^(manifest\.json|sw\.js)$">
+    Require all granted
+</FilesMatch>
+
+# BEGIN cPanel-generated php ini directives
+# END cPanel-generated php ini directives

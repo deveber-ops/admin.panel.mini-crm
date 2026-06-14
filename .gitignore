@@ -1,0 +1,7 @@
+/cache/
+/cgi-bin/
+/.well-known/
+/.vscode/
+/.idea/
+/src/Config/app_config.php
+/vendor/

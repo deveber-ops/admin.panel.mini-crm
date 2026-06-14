@@ -1,0 +1,26 @@
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="updateClientGroupModal" tabindex="-1" aria-labelledby="updateClientGroupModalLabel">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4">
+      <div class="modal-header p-2 justify-content-center border-0">
+        <h1 class="modal-title fs-5" id="updateClientGroupLabel">Редактирование группы</h1>
+      </div>
+      <div class="modal-body py-2">
+        <form action="updateClientGroup" updateSections="clientGroupsList, insertClientModal, updateClientModal" class="row g-3 needs-validation" name="updateClientGroup" id="updateClientGroup" novalidate>
+          <input type="hidden" class="form-control" name="id" required>
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">Наименование</span>
+            <input type="text" class="form-control" name="name" required>
+          </div>
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">Скидка %</span>
+            <input type="number" step="0.1" min="0" class="form-control" name="discount" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer p-2 border-0 justify-content-between">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Отмена</button>
+        <button type="submit" form="updateClientGroup" class="btn btn-success">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>

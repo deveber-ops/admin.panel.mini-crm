@@ -1,0 +1,39 @@
+{% extends 'layouts/base.twig' %}
+
+{% block title %}Панель управления - Клиенты{% endblock %}
+
+{% block content %}
+<main class="vh-100 d-flex flex-nowrap m-3 overflow-hidden">
+    {{ include('/sections/sidebar.twig') }}
+    <div class="container-fluid d-flex flex-column bg-body-secondary h-100 rounded-4 p-3">
+        <div class="d-flex flex-row h-100 overflow-hidden">
+            <div class="d-flex flex-column h-100 overflow-hidden me-3"  style="min-width: 20rem; max-width: 25rem;">
+                <div class="text-center fs-4 bg-body rounded-top-4 p-3">Группы</div>
+                {{ include('/sections/clientGroupsList.twig') }}
+                <div class="text-center bg-body p-1 rounded-bottom-4"><small>Нажмине для сортировки клиентов. <br> Нажмите еще раз для отмены сортировки.</small></div>
+            </div>
+            <div class="d-flex flex-column h-100 overflow-hidden w-100 rounded-4">
+                <div class="text-center d-flex align-items-center justify-content-center bg-body rounded-top-4 p-3 position-relative">
+                <span class="fs-4">Клиенты</span>
+                </div>
+                    {{ include('/sections/clientsList.twig') }}
+                    <div class="d-flex flex-row border-top">
+                            <form action="searchClients" class="w-100 d-flex flex-row" updateSections="clientsList" name="searchClients" id="searchClients">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text rounded-0 rounded-bottom-start-4 border-0">Поиск</span>
+                                    <input type="tel" name="phone" class="form-control rounded-end-0 border-0" placeholder="+375 (__) ___-__-__">
+                                    <input type="text" name="legal" class="form-control rounded-end-0 border-0 border-start" placeholder="УНП или Наименование">
+                                </div>
+                            </form>
+                    </div>
+            </div>
+        </div>
+    </div>
+</main>
+{{ include('/sections/insertClientGroupModal.twig') }}
+{{ include('/sections/updateClientGroupModal.twig') }}
+{{ include('/sections/updateClientModal.twig') }}
+{{ include('/sections/insertClientModal.twig') }}
+
+{{ include('/sections/confirmationModal.twig') }}
+{% endblock %}

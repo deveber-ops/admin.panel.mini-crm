@@ -1,0 +1,58 @@
+<div class="d-flex flex-column overflow-hidden me-3 bg-body rounded-4 p-3" id="totalSumms">
+    <h4 class="text-uppercase text-center mb-3">Всего</h4>
+    <div class="d-flex flex-column justify-content-between align-items-center">
+        <div class="d-flex flex-row fs-5 w-100 mb-2">
+            <span class="w-50 border-end rounded-start-4 p-2 text-center bg-body-secondary d-flex align-items-center justify-content-center">Наличные</span>
+            <span class="w-50 rounded-end-4 p-2 text-center bg-body-secondary fw-bold d-flex align-items-center justify-content-center">{{ toFixed(AMOUNTS.totals.cash) }}</span>
+        </div>
+        <div class="d-flex flex-row fs-5 w-100 mb-2">
+            <span class="w-50 border-end rounded-start-4 p-2 text-center bg-body-secondary d-flex align-items-center justify-content-center">Картой</span>
+            <span class="w-50 rounded-end-4 p-2 text-center bg-body-secondary fw-bold d-flex align-items-center justify-content-center">{{ toFixed(AMOUNTS.totals.card) }}</span>
+        </div>
+        <div class="d-flex flex-row fs-5 w-100 mb-2">
+            <span class="w-50 border-end rounded-start-4 p-2 text-center bg-body-secondary d-flex align-items-center justify-content-center">Безнал.</span>
+            <span class="w-50 rounded-end-4 p-2 text-center bg-body-secondary fw-bold d-flex align-items-center justify-content-center">{{ toFixed(AMOUNTS.totals.noncash) }}</span>
+        </div>
+        <div class="d-flex flex-row fs-5 w-100 mb-2">
+            <span class="w-50 border-end rounded-start-4 p-2 text-center text-bg-success d-flex align-items-center justify-content-center">Сумма</span>
+            <span class="w-50 rounded-end-4 p-2 text-center text-bg-success fw-bold d-flex align-items-center justify-content-center">{{ toFixed(AMOUNTS.totals.sum) }}</span>
+        </div>
+        <div class="d-flex flex-row fs-5 w-100 mb-2 mt-3">
+            <span class="w-50 border-end rounded-start-4 p-2 text-center bg-body-secondary d-flex align-items-center justify-content-center">Ср. чек</span>
+            <span class="w-50 rounded-end-4 p-2 text-center bg-body-secondary fw-bold d-flex align-items-center justify-content-center">{{ toFixed(AMOUNTS.totals.average) }}</span>
+        </div>
+        <div class="d-flex flex-row fs-5 w-100 mb-2">
+            <span class="w-50 border-end rounded-start-4 p-2 text-center bg-body-secondary d-flex align-items-center justify-content-center">Ср. день</span>
+            <span class="w-50 rounded-end-4 p-2 text-center bg-body-secondary fw-bold d-flex align-items-center justify-content-center">{{ toFixed(AMOUNTS.totals.daily_average) }}</span>
+        </div>
+    </div>
+    <div class="d-flex flex-column justify-content-between align-items-center mt-3">
+        <div class="d-flex flex-row fs-5 w-100 mb-2">
+            <span class="w-50 border-end rounded-start-4 p-2 text-center bg-body-secondary d-flex align-items-center justify-content-center">Коммиссия банка</span>
+            <span class="w-50 rounded-end-4 p-2 text-center bg-body-secondary fw-bold d-flex align-items-center justify-content-center">{{ toFixed(AMOUNTS.totals.bank_comission) }}</span>
+        </div>
+        <div class="d-flex flex-row fs-5 w-100 mb-3">
+            <span class="w-50 border-end rounded-start-4 p-2 text-center bg-body-secondary d-flex align-items-center justify-content-center">Налог</span>
+            <span class="w-50 rounded-end-4 p-2 text-center bg-body-secondary fw-bold d-flex align-items-center justify-content-center">{{ toFixed(AMOUNTS.totals.tax) }}</span>
+        </div>
+    </div>
+    <h4 class="text-uppercase text-center mb-3">Сегодня</h4>
+    <div class="d-flex flex-column justify-content-between align-items-center">
+        <div class="d-flex flex-row fs-5 w-100 mb-2">
+            <span class="w-50 border-end rounded-start-4 p-2 text-center bg-body-secondary d-flex align-items-center justify-content-center">Наличные</span>
+            <span class="w-50 rounded-end-4 p-2 text-center bg-body-secondary fw-bold d-flex align-items-center justify-content-center">{{ toFixed(AMOUNTS.today.coming.cash) }}</span>
+        </div>
+        <div class="d-flex flex-row fs-5 w-100 mb-2">
+            <span class="w-50 border-end rounded-start-4 p-2 text-center bg-body-secondary d-flex align-items-center justify-content-center">Картой</span>
+            <span class="w-50 rounded-end-4 p-2 text-center bg-body-secondary fw-bold d-flex align-items-center justify-content-center">{{ toFixed(AMOUNTS.today.coming.card) }}</span>
+        </div>
+        <div class="d-flex flex-row fs-5 w-100 mb-2">
+            <span class="w-50 border-end rounded-start-4 p-2 text-center bg-body-secondary d-flex align-items-center justify-content-center">Безнал.</span>
+            <span class="w-50 rounded-end-4 p-2 text-center bg-body-secondary fw-bold d-flex align-items-center justify-content-center">{{ toFixed(AMOUNTS.today.coming.noncash) }}</span>
+        </div>
+        <div class="d-flex flex-row fs-5 w-100 mb-2">
+            <span class="w-50 border-end rounded-start-4 p-2 text-center text-bg-success d-flex align-items-center justify-content-center">Сумма</span>
+            <span class="w-50 rounded-end-4 p-2 text-center text-bg-success fw-bold d-flex align-items-center justify-content-center">{{ toFixed(AMOUNTS.today.coming.cash + AMOUNTS.today.coming.card + AMOUNTS.today.coming.noncash) }}</span>
+        </div>
+    </div>
+</div>

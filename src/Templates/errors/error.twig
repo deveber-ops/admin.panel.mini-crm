@@ -1,0 +1,85 @@
+{% extends 'layouts/base.twig' %}
+
+{% block title %}Ошибка{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-danger shadow">
+                <div class="card-header bg-danger text-white">
+                    <h2 class="h4 mb-0">
+                        <i class="bi bi-exclamation-octagon-fill"></i>
+                        Произошла ошибка
+                    </h2>
+                </div>
+                
+                <div class="card-body">
+                    {% if debug_mode %}
+                        {# Подробная информация для разработки #}
+                        <div class="alert alert-danger">
+                            <h3 class="h5">{{ error_title|default('Ошибка приложения') }}</h3>
+                            <p class="mb-1"><strong>Сообщение:</strong> {{ error_message }}</p>
+                            
+                            {% if error_code %}
+                                <p class="mb-1"><strong>Код ошибки:</strong> {{ error_code }}</p>
+                            {% endif %}
+                            
+                            {% if error_file %}
+                                <p class="mb-1"><strong>Файл:</strong> {{ error_file }}</p>
+                            {% endif %}
+                            
+                            {% if error_line %}
+                                <p class="mb-1"><strong>Строка:</strong> {{ error_line }}</p>
+                            {% endif %}
+                            
+                            {% if error_trace %}
+                                <div class="mt-3">
+                                    <h4 class="h6">Трассировка:</h4>
+                                    <pre class="bg-light p-3 small">{{ error_trace }}</pre>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        {# Упрощенное сообщение для пользователей #}
+                        <div class="text-center py-4">
+                            <i class="bi bi-exclamation-triangle text-danger" style="font-size: 3rem;"></i>
+                            <h3 class="h4 mt-3">Что-то пошло не так</h3>
+                            <p class="text-muted">Мы уже работаем над устранением проблемы. Пожалуйста, попробуйте позже.</p>
+                            
+                            {% if error_message %}
+                                <div class="alert alert-info mt-3">
+                                    <small>{{ error_message }}</small>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    
+                    <div class="text-center mt-4">
+                        <a href="/" class="btn btn-primary">
+                            <i class="bi bi-house-door"></i> На главную
+                        </a>
+                        
+                        {% if auth.isLoggedIn %}
+                            <a href="/panel" class="btn btn-outline-secondary ms-2">
+                                <i class="bi bi-speedometer2"></i> В панель управления
+                            </a>
+                        {% else %}
+                            <a href="/login" class="btn btn-outline-secondary ms-2">
+                                <i class="bi bi-box-arrow-in-right"></i> Войти
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="card-footer text-muted small">
+                    <div class="d-flex justify-content-between">
+                        <span>ID запроса: {{ request_id|default('N/A') }}</span>
+                        <span>{{ "now"|date("d.m.Y H:i:s") }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

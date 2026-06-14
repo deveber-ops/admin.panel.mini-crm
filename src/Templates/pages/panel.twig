@@ -1,0 +1,95 @@
+{% extends 'layouts/base.twig' %}
+
+{% block title %}Панель управления - Продажи{% endblock %}
+
+{% block content %}
+<main class="vh-100 d-flex flex-nowrap m-3 overflow-hidden">
+    {{ include('/sections/sidebar.twig') }}
+    <div class="container-fluid d-flex flex-column bg-body-secondary h-100 rounded-4 p-3">
+        <h4 class="d-flex flex-row justify-content-center align-items-center bg-body rounded-top-4 p-3 text-center m-0 position-relative">
+            <button class="btn btn-secondary btn-lg d-flex flex-row align-items-center dropdown-toggle p-2 rounded-4 position-absolute top-0 start-0 m-1" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                <svg class="icon-2 me-2"><use xlink:href="#sliders"></use></svg> <span class="me-2">Фильтр</span>
+            </button>
+            <ul class="dropdown-menu p-3 rounded-4">
+                <li><h6 class="dropdown-header text-center text-bg-secondary rounded-4 mb-3">Фильтр</h6></li>
+                <form action="salesFilter" updateSections="salesList" name="salesFilter" class="d-flex flex-column" id="salesFilter">
+                    <div class="d-flex flex-row">
+                        <div class="d-flex flex-column me-2 w-50">
+                            <span class="w-100 text-center mb-1">Дата начало</span>
+                            <div class="input-group input-group-sm">
+                                <input type="date" class="form-control rounded-4 text-center fw-normal" name="start_date">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column w-50">
+                            <span class="w-100 text-center mb-1">Дата конец</span>
+                            <div class="input-group input-group-sm">
+                                <input type="date" class="form-control rounded-4 text-center fw-normal" name="end_date">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-nowrap mt-2 d-flex flex-row rounded-4 mb-2">
+                        <div class="form-check form-switch d-flex flex-row align-items-center">
+                            <input class="form-check-input me-2" type="checkbox" role="switch" id="switchType" name="client_type">
+                            <label class="form-check-label" for="switchType">Юридическое лицо</label>
+                        </div>
+                    </div>
+                    <span class="w-100 text-center mb-1">Группа клиента</span>
+                    <div class="row row-cols-auto mb-2">
+                        <div class="col">
+                            {% for GROUP in GROUPS %}
+                            <input type="radio" class="btn-check" name="client_group" value="{{GROUP.id}}" id="group-{{GROUP.id}}" autocomplete="off">
+                            <label class="btn btn-sm btn-outline-secondary text-uppercase" for="group-{{GROUP.id}}">{{GROUP.name}}</label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <span class="w-100 text-center mb-1">Номер телефона</span>
+                    <div class="input-group mb-2">
+                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-telephone me-2"></i></span>
+                        <input type="tel" name="phone" class="form-control">
+                    </div>
+                    <span class="w-100 text-center mb-1">Категории и услуги</span>
+                    <input type="button" value="Выбрать..." class="form-select text-start w-100 serviceSelect text-wrap mb-1" data-bs-auto-close="outside" data-id="1" data-bs-toggle="dropdown" aria-expanded="false" readonly>
+                    <ul class="dropdown-menu p-2 categoriesDropdown" data-id="1">
+                        {% for CAT in CATEGORIES %}
+                        <div class="dropend serviceDropdown">
+                        <input type="radio" class="d-none" name="service_category" value="{{CAT.id}}" id="category-{{CAT.id}}" autocomplete="off">
+                        <button type="button" class="btn btn-outline-secondary border-0 text-nowrap d-flex justify-content-between align-items-center w-100 {% if not loop.last %}mb-1{% endif %}" for="category-{{CAT.id}}" data-bs-toggle="dropdown" aria-expanded="false">{{CAT.name}}<svg class="icon-1"><use xlink:href="#caret-right-fill"/></svg></button>
+                            <ul class="dropdown-menu p-0">
+                                <div class="list-group list-group-flush">
+                                <div class="d-flex justify-content-center my-2">{{CAT.name}}</div>
+                                {% for SERVICE in SERVICES %}
+                                {% if CAT.id == SERVICE.category_id %}
+                                    <button type="button" class="list-group-item list-group-item-action text-nowrap d-flex justify-content-between" data-id="1" data-serviceid="{{SERVICE.id}}" data-category="{{SERVICE.category_name}}" data-name="{{SERVICE.name}}">{{SERVICE.name}}</button>
+                                {% endif %}
+                                {% endfor %}
+                                </div>
+                            </ul>
+                        </div>
+                        {% endfor %}
+                    </ul>
+                    <span class="w-100 text-center mb-1">Способ оплаты</span>
+                    <div class="row row-cols-auto mb-3">
+                        <div class="col">
+                            {% for METHOD in PAYMETHODS %}
+                            <input type="radio" class="btn-check" name="client_group" value="{{METHOD.id}}" id="method-{{METHOD.id}}" autocomplete="off">
+                            <label class="btn btn-sm btn-outline-secondary text-uppercase" for="method-{{METHOD.id}}">{{METHOD.name}}</label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-warning rounded-4 mt-4" id="resetForm">Сбросить</button>
+                </form>
+            </ul>
+            <span>Продажи</span>
+        </h4>
+        <div class="d-flex flex-column h-100 overflow-hidden bg-body rounded-bottom-4">
+            <div >
+
+            </div>
+            {{ include('/sections/salesList.twig') }}
+        </div>
+    </div>
+</main>
+
+{{ include('/sections/insertSaleModal.twig') }}
+{{ include('/sections/confirmationModal.twig') }}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'layouts/base.twig' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="alert alert-danger">
+        <h2>Ошибка сервера</h2>
+        {% if error_message %}
+            <p class="mb-0">{{ error_message }}</p>
+        {% endif %}
+    </div>
+    <a href="/" class="btn btn-primary">На главную</a>
+</div>
+{% endblock %}

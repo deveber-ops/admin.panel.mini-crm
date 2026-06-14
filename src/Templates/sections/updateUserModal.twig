@@ -1,0 +1,38 @@
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="updateUserModal" tabindex="-1" aria-labelledby="updateUserModalLabel">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content rounded-4">
+      <div class="modal-header p-2 justify-content-center border-0">
+        <h1 class="modal-title fs-5" id="updateUserLabel">Добавить пользователя</h1>
+      </div>
+      <div class="modal-body py-2">
+        <form action="updateUser" updateSections="usersList" class="row g-2 needs-validation" name="updateUser" id="updateUser" novalidate>
+            <input type="hidden" class="form-control" name="id" required>
+            <div class="input-group">
+                <label class="input-group-text" for="selectRole">Роль</label>
+                <select class="form-select" id="selectRole" name="role" required>
+                    {% for ROLE in ROLES %}
+                        <option value="{{ ROLE.id }}" title="{{ ROLE.description }}">{{ ROLE.name }}</option>
+                    {% endfor %}
+                </select>
+                <span class="input-group-text">Должность</span>
+                <input type="text" class="form-control" name="post" required>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text">ФИО</span>
+                <input  class="form-control" name="full_name" placeholder="Иванов Иван Иванович" required>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text"><svg class="icon-2"><use xlink:href="#envelope-at"></use></svg></span>
+                <input type="email" class="form-control" name="email" required>
+                <span class="input-group-text"><svg class="icon-2"><use xlink:href="#phone-call"></use></svg></span>
+                <input type="tel" class="form-control" placeholder="+375 (__) ___-__-__" name="phone" required>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer p-2 border-0 justify-content-between">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Отмена</button>
+        <button type="submit" form="updateUser" class="btn btn-success">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>

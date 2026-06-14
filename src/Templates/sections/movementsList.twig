@@ -1,0 +1,38 @@
+<div class="row g-0 bg-body rounded-bottom-4 overflow-y-auto" id="movementsList">
+{% for MOVEMENT in MOVEMENTS %}
+    <div class="row g-0 row-cols-7 {% if not loop.last %} border-bottom {% endif %}" data-action="Movement" data-update="movementsList" data-form="updateMovement" data-id="{{MOVEMENT.id}}" data-type="{{MOVEMENT.type}}" data-footing="{{MOVEMENT.footing}}" data-method="{{MOVEMENT.method}}" data-summ="{% if MOVEMENT.cash != 0 %}{{MOVEMENT.cash}}{% elseif MOVEMENT.card != 0 %}{{MOVEMENT.card}}{% elseif MOVEMENT.noncash != 0 %}{{MOVEMENT.noncash}}{% endif %}">
+        <div class="col-1 py-1 {% if MOVEMENT.type == 'Приход' %}text-bg-success{% else %}text-bg-danger{% endif %} {% if loop.last %} rounded-4 {% endif %} rounded-top-0 rounded-end-0">
+            <span class="d-flex align-items-center justify-content-center text-center p-2 h-100">#{{MOVEMENT.id}}</span>
+        </div>
+        <div class="col-2 py-1 {% if MOVEMENT.type == 'Приход' %}text-bg-success{% else %}text-bg-danger{% endif %}">
+            <span class="d-flex align-items-center justify-content-center text-center p-2 h-100">{{ dateTimeFormat(MOVEMENT.timestamp)}}</span>
+        </div>
+        <div class="col py-1 {% if MOVEMENT.type == 'Приход' %}text-bg-success{% else %}text-bg-danger{% endif %}">
+            <span class="d-flex align-items-center justify-content-start text-start p-2 h-100">{{MOVEMENT.footing}}</span>
+        </div>
+        <div class="col-2 py-1 {% if MOVEMENT.type == 'Приход' %}text-bg-success{% else %}text-bg-danger{% endif %}">
+            <span class="d-flex flex-column align-items-center justify-content-center text-center p-2 h-100 text-nowrap">
+                {% if MOVEMENT.method != 4 %}
+                    {% if MOVEMENT.cash != 0 %} {{MOVEMENT.cash}} BYN
+                    {% elseif MOVEMENT.card != 0 %} {{MOVEMENT.card}} BYN
+                    {% elseif MOVEMENT.noncash != 0 %} {{MOVEMENT.noncash}} BYN
+                    {% endif %}
+                {% else %}
+                    <i class="bi bi-cash-coin me-2"><strong class="text-decoration-none fst-normal ms-2">{{MOVEMENT.cash}} BYN</strong></i>
+                    <i class="bi bi-credit-card-fill me-2"><strong class="text-decoration-none fst-normal ms-2">{{MOVEMENT.card}} BYN</strong></i>
+                {% endif %}
+            </span>
+        </div>
+        <div class="col-1 py-1 {% if MOVEMENT.type == 'Приход' %}text-bg-success{% else %}text-bg-danger{% endif %}">
+            <span class="d-flex align-items-center justify-content-center text-center p-2 h-100">{{MOVEMENT.type}}</span>
+        </div>
+        {% for METHOD in PAYMETHODS %}
+            {% if METHOD.id == MOVEMENT.method %}
+                <div class="col-2 py-1 {% if loop.parent.loop.last %} rounded-bottom-4 {% endif %} rounded-start-0 {% if MOVEMENT.type == 'Приход' %}text-bg-success{% else %}text-bg-danger{% endif %}">
+                    <span class="d-flex align-items-center rounded-4 justify-content-center text-center p-2 h-100 {% if METHOD.code == 'cash' %}text-bg-success{% elseif METHOD.code == 'card' %}text-bg-secondary{% elseif METHOD.code == 'legal' %}text-bg-warning{% elseif METHOD.code == 'mixed' %}text-bg-dark{% endif %} me-2">{{ METHOD.name }}</span>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endfor %}
+</div>

@@ -1,0 +1,22 @@
+<h5 class="text-center">Терминал</h5>
+{% if SHIFT.connection == true %}
+<div id="shiftBlock">
+    {% if SHIFT.open == true %}
+    <li class="nav-item mb-2">
+        <button class="btn btn-lg btn-danger d-flex align-items-center w-100 fs-5 px-2" data-action="closeShift" data-update="shiftBlock" data-confirm="closeShift" onclick="window.closeShift(this)">
+            <svg class="icon-2 me-2"><use xlink:href="#x-lg"></use></svg>
+            Закрыть смену
+        </button>
+    </li>
+    {% else %}
+    <li class="nav-item mb-2">
+        <button class="btn btn-lg btn-success d-flex align-items-center w-100 fs-5 px-2" data-action="openShift" data-update="shiftBlock" data-confirm="openShift" data-id="{{USERID}}" data-shortname="{{U_SHORTNAME}}" onclick="window.openShift(this)">
+            <svg class="icon-2 me-2"><use xlink:href="#check-lg"></use></svg>
+            Открыть смену
+        </button>
+    </li>
+    {% endif %}
+</div>
+{% else %}
+<small class="text-center p-2 text-bg-warning rounded-4">{{SHIFT}}</small>
+{% endif %}

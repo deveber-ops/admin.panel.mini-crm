@@ -1,0 +1,134 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-body-secondary rounded-4 me-3 sidebar" style="width: 20rem;"> 
+    <svg class="logo" height="5rem" aria-hidden="true"><use xlink:href="#logo"></use></svg> 
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item mb-2">
+            <a href="/panel" class="nav-link link-body-emphasis d-flex align-items-center fs-5 px-2 {% if PAGE == 'panel'%}active{% endif %}" aria-current="page">
+                <svg class="icon-2 me-2"><use xlink:href="#table"></use></svg>
+                Продажи
+            </a>
+        </li>
+        <li class="nav-item mb-2">
+            <a href="/services" class="nav-link link-body-emphasis d-flex align-items-center fs-5 px-2 {% if PAGE == 'services'%}active{% endif %}" aria-current="page">
+                <svg class="icon-2 me-2"><use xlink:href="#card-list"></use></svg>
+                Услуги
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/sales-register" class="nav-link link-body-emphasis d-flex align-items-center fs-5 px-2 {% if PAGE == 'sales-register'%}active{% endif %}" aria-current="page">
+                <svg class="icon-2 me-2"><use xlink:href="#cash-coin"></use></svg>
+                Касса
+            </a>
+        </li>
+        <hr class="m-1">
+        <li class="nav-item mb-2">
+            <a href="/clients" class="nav-link link-body-emphasis d-flex align-items-center fs-5 px-2 {% if PAGE == 'clients'%}active{% endif %}" aria-current="page">
+                <svg class="icon-2 me-2"><use xlink:href="#people"></use></svg>
+                Клиенты
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/users" class="nav-link link-body-emphasis d-flex align-items-center fs-5 px-2 {% if PAGE == 'users'%}active{% endif %}" aria-current="page">
+                <svg class="icon-2 me-2"><use xlink:href="#person-gear"></use></svg>
+                Пользователи
+            </a>
+        </li>
+        <hr class="m-1">
+        <li class="nav-item">
+            <a href="/stocks" class="nav-link link-body-emphasis d-flex align-items-center fs-5 px-2 {% if PAGE == 'stocks'%}active{% endif %}" aria-current="page">
+                <svg class="icon-2 me-2"><use xlink:href="#percent"></use></svg>
+                Промо
+            </a>
+        </li>
+        <hr class="m-1 mb-2">
+        {% if PAGE == 'services' %}
+        <li class="nav-item mb-2">
+            <button class="btn btn-lg btn-warning d-flex align-items-center w-100 fs-5 px-2" data-bs-toggle="modal" data-bs-target="#insertCategoryModal">
+                <svg class="icon-2 me-2"><use xlink:href="#plus-circle"></use></svg>
+                Добавить категорию
+            </button>
+        </li>
+        <li class="nav-item mb-2">
+            <button class="btn btn-lg btn-warning d-flex align-items-center w-100 fs-5 px-2" data-bs-toggle="modal" data-bs-target="#insertServiceModal">
+                <svg class="icon-2 me-2"><use xlink:href="#plus-circle"></use></svg>
+                Добавить услугу
+            </button>
+        </li>
+        {% elseif PAGE == 'panel' %}
+        <li class="nav-item mb-2">
+            <button class="btn btn-lg btn-warning d-flex align-items-center w-100 fs-5 px-2" data-bs-toggle="modal" data-bs-target="#insertSaleModal">
+                <svg class="icon-2 me-2"><use xlink:href="#plus-circle"></use></svg>
+                Добавить продажу
+            </button>
+        </li>
+        {% elseif PAGE == 'clients' %}
+        <li class="nav-item mb-2">
+            <button class="btn btn-lg btn-warning d-flex align-items-center w-100 fs-5 px-2" data-bs-toggle="modal" data-bs-target="#insertClientGroupModal">
+                <svg class="icon-2 me-2"><use xlink:href="#plus-circle"></use></svg>
+                Добавить группу
+            </button>
+        </li>
+        <li class="nav-item mb-2">
+            <button class="btn btn-lg btn-warning d-flex align-items-center w-100 fs-5 px-2" data-bs-toggle="modal" data-bs-target="#insertClientModal">
+                <svg class="icon-2 me-2"><use xlink:href="#plus-circle"></use></svg>
+                Добавить клиента
+            </button>
+        </li>
+        {% elseif PAGE == 'users' %}
+        <li class="nav-item mb-2">
+            <button class="btn btn-lg btn-warning d-flex align-items-center w-100 fs-5 px-2" data-bs-toggle="modal" data-bs-target="#insertRoleModal">
+                <svg class="icon-2 me-2"><use xlink:href="#plus-circle"></use></svg>
+                Добавить группу
+            </button>
+        </li>
+        <li class="nav-item mb-2">
+            <button class="btn btn-lg btn-warning d-flex align-items-center w-100 fs-5 px-2" data-bs-toggle="modal" data-bs-target="#insertUserModal">
+                <svg class="icon-2 me-2"><use xlink:href="#plus-circle"></use></svg>
+                Добавить пользователя
+            </button>
+        </li>
+        {% elseif PAGE == 'sales-register' %}
+        <li class="nav-item mb-2">
+            <button class="btn btn-lg btn-warning d-flex align-items-center w-100 fs-5 px-2" data-bs-toggle="modal" data-bs-target="#insertMovementModal">
+                <svg class="icon-2 me-2"><use xlink:href="#plus-circle"></use></svg>
+                Добавить движение
+            </button>
+        </li>
+            {{ include('/sections/shift.twig') }}
+        {% endif %}
+    </ul>
+    <hr>
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="dropdown theme-swither rounded-3 border">
+        <button class="btn btn-lg py-2 dropdown-toggle bg-transparent d-flex align-items-center border-0" id="theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (dark)">
+            <svg class="bi my-1 theme-icon-active" width="1.1em" height="1.1em"><use href="#moon-stars-fill"></use></svg>
+            <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end shadow-sm p-1 fs-5 rounded-3" aria-labelledby="bd-theme-text">
+            <li>
+            <button type="button" class="dropdown-item d-flex align-items-center rounded-3" data-bs-theme-value="light" aria-pressed="false">
+                <svg class="bi me-2 opacity-50" width="1.1em" height="1.1em"><use href="#sun-fill"></use></svg>
+                Light
+                <svg class="bi ms-auto d-none" width="1.1em" height="1.1em"><use href="#check2"></use></svg>
+            </button>
+            </li>
+            <li>
+            <button type="button" class="dropdown-item d-flex align-items-center rounded-3" data-bs-theme-value="dark" aria-pressed="true">
+                <svg class="bi me-2 opacity-50" width="1.1em" height="1.1em"><use href="#moon-stars-fill"></use></svg>
+                Dark
+                <svg class="bi ms-auto d-none" width="1.1em" height="1.1em"><use href="#check2"></use></svg>
+            </button>
+            </li>
+            <li>
+            <button type="button" class="dropdown-item d-flex align-items-center rounded-3" data-bs-theme-value="auto" aria-pressed="false">
+                <svg class="bi me-2 opacity-50" width="1.1em" height="1.1em"><use href="#circle-half"></use></svg>
+                Auto
+                <svg class="bi ms-auto d-none" width="1.1em" height="1.1em"><use href="#check2"></use></svg>
+            </button>
+            </li>
+        </ul>
+        </div>
+        <a href="/profile" class="d-flex link-body-emphasis text-decoration-none fs-4" role="{{U_ROLE}}">{{ USERNAME }}</a>
+        <a href="/logout" class="btn btn-lg btn-outline-danger"><svg class="icon-3"><use xlink:href="#box-arrow-left"/></svg></a>
+    </div>
+</div>

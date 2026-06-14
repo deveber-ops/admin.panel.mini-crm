@@ -1,0 +1,30 @@
+{% extends 'layouts/base.twig' %}
+
+{% block title %}Панель управления - Услуги{% endblock %}
+
+{% block content %}
+<main class="vh-100 d-flex flex-nowrap m-3 overflow-hidden">
+    {{ include('/sections/sidebar.twig') }}
+    <div class="container-fluid d-flex flex-column bg-body-secondary h-100 rounded-4 p-3">
+        <div class="d-flex flex-row h-100 overflow-hidden">
+            <div class="d-flex flex-column h-100 overflow-hidden me-3"  style="min-width: 22rem;">
+                <div class="text-center fs-4 bg-body rounded-top-4 p-3">Категории</div>
+                {{ include('/sections/categoriesList.twig') }}
+                <div class="text-center bg-body p-1 rounded-bottom-4"><small>Нажмине для сортировки услуг. <br> Нажмите еще раз для отмены сортировки.</small></div>
+            </div>
+            <div class="d-flex flex-column h-100 overflow-hidden w-100 rounded-4">
+                <div class="text-center fs-4 bg-body rounded-top-4 p-3">Услуги</div>
+                {{ include('/sections/servicesList.twig') }}
+            </div>
+        </div>
+    </div>
+</main>
+
+{{ include('/sections/insertCategoryModal.twig') }}
+{{ include('/sections/updateCategoryModal.twig') }}
+
+{{ include('/sections/updateServiceModal.twig') }}
+{{ include('/sections/insertServiceModal.twig') }}
+
+{{ include('/sections/confirmationModal.twig') }}
+{% endblock %}

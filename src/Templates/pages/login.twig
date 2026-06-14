@@ -1,0 +1,28 @@
+{% extends 'layouts/base.twig' %}
+
+{% block title %}Вход в систему{% endblock %}
+
+{% block content %}
+<main class="my-auto mx-auto">
+    <form method="POST" action="/login" class="needs-validation d-flex flex-column bg-dark-subtle p-3" id="login" novalidate>
+        <svg class="logo" style="max-height: 6rem; color: #4F9593;"><use xlink:href="#logo"/></svg>
+        <h5 class="mb-3 mt-3 fw-bold text-uppercase text-center">Панель управления</h5>
+        {% if error %}
+            <div class="alert alert-danger alert-dismissible fade show w-100">
+                {{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endif %}
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <div class="form-floating mb-2">
+            <input name="username" type="text" class="form-control rounded-4" id="floatingInput" placeholder="a.protego" required>
+            <label for="floatingInput">Имя пользователя</label>
+        </div>
+        <div class="form-floating">
+            <input name="password" type="password" class="form-control rounded-4" id="floatingPassword" placeholder="Password" required>
+            <label for="floatingPassword">Пароль</label>
+        </div>
+        <button class="btn btn-success btn-lg w-100 py-2 mt-4 rounded-4" type="submit">Войти</button>
+    </form>
+</main>
+{% endblock %}

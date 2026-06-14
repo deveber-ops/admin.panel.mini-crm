@@ -1,0 +1,135 @@
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="insertClientModal" tabindex="-1" aria-labelledby="insertClientModalLabel" aria-hidden="false">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content rounded-4">
+      <div class="modal-header p-2 justify-content-center border-0">
+        <h1 class="modal-title fs-5" id="insertClientLabel">Добавить клиента</h1>
+      </div>
+      <div class="modal-body py-2">
+        <form action="insertClient" updateSections="clientsList" class="needs-validation" name="insertClient" id="insertClient" novalidate>
+          <div class="input-group justify-content-center mb-3">
+            <input type="radio" class="btn-check" name="type" id="individualType" value="individual" autocomplete="off" onchange="selectClientType(this)" checked>
+            <label class="btn btn-primary btn-lg rounded-4 me-2" for="individualType">Физическое лицо</label>
+            <input type="radio" class="btn-check" name="type" id="legalType" value="legal" onchange="selectClientType(this)" autocomplete="off">
+            <label class="btn btn-primary btn-lg rounded-4" for="legalType">Юридическое лицо</label>
+          </div>
+
+          <div class="row g-2">
+            <div class="col-6">
+              <div class="input-group input-group-lg">
+                <label class="input-group-text" for="groupSelect">Группа</label>
+                <select class="form-select" id="groupSelect" name="group">
+                {% for GROUP in GROUPS %}
+                  <option value="{{ GROUP.id }}" {% if GROUP.name == "Client"%}selected{% endif %}>{{ GROUP.name }}</option>
+                {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="input-group input-group-lg">
+                <input type="text" class="form-control" placeholder="Имя" name="name">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="input-group input-group-lg">
+                <label class="input-group-text" for="individualDiscount">Индивидуальная скидка %</label>
+                <input type="number" class="form-control" name="discount" id="individualDiscount" step="0.1" min="0" max="100" value="0">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="input-group input-group-lg">
+                <input type="tel" class="form-control" name="phone" placeholder="+375 (__) ___-__-__">
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-2 mt-3 d-none" id="legalForm">
+            <div class="col-6">
+              <div class="input-group input-group-lg">
+                <label class="input-group-text" for="formSelect">Форма</label>
+                <select class="form-select" id="formSelect" name="legal_form">
+                  <option value="" disabled selected class="d-none"></option>
+                {% for FORM in LEGAL_FORMS %}
+                  <option value="{{ FORM.id }}">{{ FORM.code }}</option>
+                {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <div class="input-group input-group-lg">
+                <input type="text" class="form-control" placeholder="УНП" name="legal_unp">
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="input-group input-group-lg">
+                <input type="text" class="form-control" placeholder="Наименование" name="legal_name">
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="input-group input-group-lg">
+                <input type="text" class="form-control" placeholder="Адрес (индекс, адрес)" name="legal_address">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="input-group input-group-lg">
+                <input type="email" class="form-control" placeholder="E-Mail" name="legal_email">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="input-group input-group-lg">
+                <input type="tel" class="form-control" placeholder="+375 (__) ___-__-__" name="legal_phone">
+              </div>
+            </div>
+
+            <div class="row g-2 m-0 p-0">
+              <h5 class="mt-3 mb-1 p-0 text-center">Банковские реквизиты</h5>
+              <div class="col-6">
+                <div class="input-group input-group-lg">
+                  <input type="text" class="form-control" placeholder="Наименование банка" name="legal_bank">
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="input-group input-group-lg">
+                  <input type="text" class="form-control" placeholder="Код банка (BIC)" name="legal_bic">
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="input-group input-group-lg">
+                  <input type="text" class="form-control" placeholder="Расчетный счет" name="legal_check">
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="input-group input-group-lg">
+                  <input type="text" class="form-control" placeholder="Адрес банка (индекс, адрес)" name="legal_bank_address">
+                </div>
+              </div>
+            </div>
+
+            <div class="row g-2 m-0 p-0">
+              <h5 class="mt-3 mb-1 p-0 text-center">Подписант</h5>
+              <div class="col-6">
+                <div class="input-group input-group-lg">
+                  <input type="text" class="form-control" placeholder="Должность" name="legal_post">
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="input-group input-group-lg">
+                  <input type="text" class="form-control" placeholder="ФИО" name="legal_signatory">
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="input-group input-group-lg">
+                  <input type="text" class="form-control" placeholder="Основание (документ, номер, дата)" name="legal_document">
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer p-2 border-0 justify-content-between">
+        <button type="button" class="btn btn-danger rounded-4" data-bs-dismiss="modal">Отмена</button>
+        <button type="submit" form="insertClient" class="btn btn-success rounded-4">Добавить</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="accordion accordion-flush h-100 overflow-y-auto p-1" id="salesList">
+
+{% if SALES is empty %}
+    <div class="list-group-item d-flex flex-row p-2 text-center">Нет ни одной продажи.</div>
+{% endif %}
+
+{% for SALE in SALES %}
+    <div class="accordion-item border-0 p-0 mb-1 mx-1" data-action="Sale" data-update="salesList" data-id="{{SALE.id}}" data-phone="{{SALE.client.phone}}">
+        <h2 class="accordion-header d-flex flex-row">
+            <button class="accordion-button p-2 bg-body-secondary collapsed w-100" type="button" data-bs-toggle="collapse" data-bs-target="#sale-{{SALE.id}}" aria-expanded="false" aria-controls="sale-{{SALE.id}}">
+                <div class="d-flex flex-row align-items-center w-100">
+                    <span class="text-bg-secondary rounded-4 p-2 px-3 fw-normal me-2">#{{ SALE.id }}</span>
+                    <span class="text-bg-secondary rounded-4 p-2 px-3 fw-normal me-2">{{ dateTimeFormat(SALE.timestamp) }}</span>
+                    <span class="fs-4 fw-normal me-2">{{SALE.client.name}}</span>
+                    <span class="badge text-bg-info fw-normal">{{ SALE.client.group.name }}</span>
+                    {% if SALE.client.discount > 0 %}
+                    <span class="badge fw-normal text-bg-info ms-2">{{SALE.client.discount}} %</span>
+                    {% endif %}
+                    <span class="ms-auto text-bg-secondary rounded-4 p-2 px-3 text-nowrap me-2">Всего услуг: <strong>{{ SALE.items|length }}</strong> на сумму <strong>{{ SALE.amount }} BYN</strong></span>
+                    <span class="ms-2 {% if SALE.payment_method.code == 'cash' %}text-bg-success{% elseif SALE.payment_method.code == 'card' %}text-bg-secondary{% elseif SALE.payment_method.code == 'legal' %}text-bg-warning{% elseif SALE.payment_method.code == 'mixed' %}text-bg-dark{% endif %} rounded-4 p-2 px-3 text-nowrap me-3 text-uppercase text-center" style="min-width: 10rem;">{{ SALE.payment_method.name }}</span>
+                </div>
+                <div class="d-flex flex-row">
+                    <span class="d-flex align-items-center justify-content-center bg-body-secondary text-nowrap fs-6 border-0 z-3 rounded-4 rounded-start-0 p-1 px-1"><svg class="icon-2 me-2"><use xlink:href="#phone-call"/></svg>{{ phoneFormat(SALE.client.phone)}}</a>
+                </div>
+            </button>
+        </h2>
+        <div id="sale-{{SALE.id}}" class="accordion-collapse collapse pb-1" data-bs-parent="#sale-{{SALE.id}}">
+            <div class="accordion-body rounded-4 d-flex flex-column p-0 m-0">
+                <ol class="list-group list-group-flush list-group-numbered bg-body-secondary p-2 rounded-bottom-4">
+                {% for ITEM in SALE.items %}
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                      <div class="fw-bold">{{ITEM.service.category.name}} - {{ITEM.service.name}}</div>
+                      Устройство: {{ITEM.device}}
+                    </div>
+                    <div class="d-flex flex-row my-auto align-items-center text-nowrap">
+                      <span class="p-2 bg-body rounded-pill fw-bold">{{ITEM.service.price}} BYN</span>
+                      {% if ITEM.discount > 0 %}
+                      <span class="mx-2 p-2 rounded-pill text-bg-warning fw-bold">{{ITEM.discount}} %</span>
+                      <span class="p-2 rounded-pill bg-body fw-bold">Итого: {{ITEM.service.total_price}} BYN</span>
+                      {% endif %}
+                    </div>
+                  </li>
+                {% endfor %}
+                  <div class="d-flex flex-row">
+                    <ul class="list-group list-group-horizontal fs-6 mt-2">
+                      <li class="list-group-item d-flex flex-column fs-4 align-items-center justify-content-center">
+                        <span>Общая сумма</span>
+                        <strong class="mt-2">{{ SALE.amount }} BYN</strong>
+                      </li>
+                      {% if SALE.payment_method.code == 'mixed' %}
+                      <li class="list-group-item d-flex flex-column align-items-center justify-content-center">
+                        <span>Наличными</span>
+                        <strong class="mt-2">{{SALE.cash}} BYN</strong>
+                      </li>
+                      <li class="list-group-item d-flex flex-column align-items-center justify-content-center">
+                        <span>Картой</span>
+                        <strong class="mt-2">{{SALE.card}} BYN</strong>
+                      </li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                </ol>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+</div>
